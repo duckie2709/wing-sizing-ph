@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1520" viewBox="0 0 1920 1520" role="img" aria-labelledby="title desc">
+<title id="title">Sơ đồ giải thuật tính S, cr, ct bằng mô hình Polhamus–Helmbold</title>
+<desc id="desc">Ba phần nối bằng các ký hiệu A và B: kiểm tra dữ liệu và tính dòng tới; giải phương trình bậc hai theo aspect ratio; lọc nghiệm, thế ngược lực và xuất kết quả. Mọi nghiệm hợp lệ đều được trả về.</desc>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 5 L0 10 Z" fill="#334e62"/></marker>
+<marker id="failArrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L10 5 L0 10 Z" fill="#8e3f36"/></marker>
+</defs>
+<rect width="1920" height="1520" fill="white"/>
+<g font-family="Times New Roman, serif">
+<text x="960" y="48.0" font-size="36" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">SƠ ĐỒ GIẢI THUẬT TÍNH S, cr VÀ ct</tspan>
+</text>
+<text x="960" y="92.0" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">Polhamus–Helmbold • Giải bậc hai theo aspect ratio A • Đối chiếu với app và MATLAB</tspan>
+</text>
+<path d="M635 140 V1360" stroke="#d5dee4" stroke-width="1.4"/>
+<path d="M1285 140 V1360" stroke="#d5dee4" stroke-width="1.4"/>
+<text x="310" y="152.0" font-size="29" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="310" dy="0">1  Dữ liệu và dòng tới</tspan>
+</text>
+<text x="960" y="152.0" font-size="29" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">2  Giải phương trình theo AR</tspan>
+</text>
+<text x="1610" y="152.0" font-size="29" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="1610" dy="0">3  Kiểm nghiệm và xuất kết quả</tspan>
+</text>
+<path d="M 310 237 L 310 265" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 310 395 L 310 430" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 310 570 L 310 595" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 310 695 L 310 725" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 310 855 L 310 887.5" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 310 1032.5 L 310 1122" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 525 500 L 590 500" fill="none" stroke="#8e3f36" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="556" y="483.0" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#8e3f36">
+<tspan x="556" dy="0">Không</tspan>
+</text>
+<path d="M 525 790 L 590 790" fill="none" stroke="#8e3f36" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="556" y="773.0" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#8e3f36">
+<tspan x="556" dy="0">Không</tspan>
+</text>
+<path d="M 590 500 L 590 1320 L 570 1320" fill="none" stroke="#8e3f36" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#failArrow)"/>
+<text x="335" y="583.0" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="335" dy="0">Có</tspan>
+</text>
+<text x="335" y="873.0" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="335" dy="0">Có</tspan>
+</text>
+<path d="M 960 238 L 960 272.5" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 960 437.5 L 960 465" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 960 605 L 960 635" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 960 765 L 960 795" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 960 925 L 960 962.5" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 960 1137.5 L 960 1172" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 1175 535 L 1240 535" fill="none" stroke="#8e3f36" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1207" y="518.0" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#8e3f36">
+<tspan x="1207" dy="0">Không</tspan>
+</text>
+<path d="M 1175 860 L 1240 860" fill="none" stroke="#8e3f36" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="1207" y="843.0" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#8e3f36">
+<tspan x="1207" dy="0">Không</tspan>
+</text>
+<path d="M 1240 535 L 1240 1320 L 1220 1320" fill="none" stroke="#8e3f36" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#failArrow)"/>
+<text x="984" y="620.0" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="984" dy="0">Có</tspan>
+</text>
+<text x="984" y="945.0" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="984" dy="0">Có</tspan>
+</text>
+<path d="M 1610 238 L 1610 270" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 1610 390 L 1610 425" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 1610 575 L 1610 615" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 1610 785 L 1610 810" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 1610 910 L 1610 940" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 1610 1060 L 1610 1085" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 1610 1195 L 1610 1213" fill="none" stroke="#334e62" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#arrow)"/>
+<path d="M 1825 1000 L 1890 1000 L 1890 1320 L 1870 1320" fill="none" stroke="#8e3f36" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#failArrow)"/>
+<text x="1857" y="983.0" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#8e3f36">
+<tspan x="1857" dy="0">Không</tspan>
+</text>
+<text x="1634" y="1073.0" font-size="22" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="1634" dy="0">Có</tspan>
+</text>
+<rect x="210.0" y="183.0" width="200" height="54" rx="27.0" fill="#edf2f5" stroke="#334e62" stroke-width="2"/>
+<text x="310" y="210.0" font-size="26" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="310" dy="0">Bắt đầu</tspan>
+</text>
+<rect x="60.0" y="265.0" width="500" height="130" rx="10" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="310" y="298.75" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="310" dy="0">Nhập Ft, V, b, λ, α, Γ, ΛLE, ρ, T, κ</tspan>
+<tspan x="310" dy="31.25">Ft là lực đứng mục tiêu của một tấm</tspan>
+<tspan x="310" dy="31.25">b là sải thực trong mặt phẳng tấm</tspan>
+</text>
+<path d="M 310 430.0 L 525.0 500 L 310 570.0 L 95.0 500 Z" fill="#f5f8fa" stroke="#334e62" stroke-width="2"/>
+<text x="310" y="500.0" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="310" dy="0">Dữ liệu hợp lệ?</tspan>
+</text>
+<rect x="60.0" y="595.0" width="500" height="100" rx="10" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="310" y="628.75" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="310" dy="0">Đổi đơn vị sang m, m/s, N, rad</tspan>
+<tspan x="310" dy="32.5">Tính M = V / √(γair R T)</tspan>
+</text>
+<path d="M 310 725.0 L 525.0 790 L 310 855.0 L 95.0 790 Z" fill="#f5f8fa" stroke="#334e62" stroke-width="2"/>
+<text x="310" y="790.0" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="310" dy="0">M &lt; 1?</tspan>
+</text>
+<rect x="60.0" y="887.5" width="500" height="145" rx="10" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="310" y="928.75" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="310" dy="0">q = ½ρV²; β = √(1 − M²)</tspan>
+<tspan x="310" dy="31.25">αg = atan2(sin α cos Γ, cos α)</tspan>
+<tspan x="310" dy="31.25">Các góc dùng trong tính toán là radian</tspan>
+</text>
+<circle cx="310" cy="1150" r="28" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="310" y="1150.0" font-size="27" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="310" dy="0">A</tspan>
+</text>
+<text x="310" y="1210.0" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="310" dy="0">Tiếp tại A ở phần 2</tspan>
+</text>
+<rect x="50.0" y="1285.0" width="520" height="70" rx="10" fill="#fff6f3" stroke="#8e3f36" stroke-width="2"/>
+<text x="310" y="1320.0" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="310" dy="0">Báo lỗi dữ liệu và kết thúc</tspan>
+</text>
+<circle cx="960" cy="210" r="28" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="960" y="210.0" font-size="27" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">A</tspan>
+</text>
+<rect x="700.0" y="272.5" width="520" height="165" rx="10" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="960" y="308.125" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">Tính t, k, K, d và kiểm tra miền số</tspan>
+<tspan x="960" dy="31.25">A* = max(0, tk/d)</tspan>
+<tspan x="960" dy="31.25">D(A) = 4 + β²A² + (tA − k)²</tspan>
+<tspan x="960" dy="31.25">Fmax = K / [2 + √D(A*)]</tspan>
+</text>
+<path d="M 960 465.0 L 1175.0 535 L 960 605.0 L 745.0 535 Z" fill="#f5f8fa" stroke="#334e62" stroke-width="2"/>
+<text x="960" y="535.0" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">Ft ≤ Fmax?</tspan>
+</text>
+<rect x="700.0" y="635.0" width="520" height="130" rx="10" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="960" y="668.75" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">h = K/Ft − 2; cq = 4 + k² − h²</tspan>
+<tspan x="960" dy="31.25">δ = (tk)² − d cq</tspan>
+<tspan x="960" dy="31.25">Kiểm tra dung sai số máy</tspan>
+</text>
+<path d="M 960 795.0 L 1175.0 860 L 960 925.0 L 745.0 860 Z" fill="#f5f8fa" stroke="#334e62" stroke-width="2"/>
+<text x="960" y="844.375" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">h ≥ 2 và δ ≥ 0?</tspan>
+<tspan x="960" dy="31.25">Có xét dung sai</tspan>
+</text>
+<rect x="700.0" y="962.5" width="520" height="175" rx="10" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="960" y="1003.125" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">Q = tk + σ√δ</tspan>
+<tspan x="960" dy="31.25">A1 = Q/d; A2 = cq/Q</tspan>
+<tspan x="960" dy="31.25">σ = +1 nếu tk ≥ 0, ngược lại −1</tspan>
+<tspan x="960" dy="31.25">Nếu Q = 0: chỉ xét A = tk/d</tspan>
+</text>
+<circle cx="960" cy="1200" r="28" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="960" y="1200.0" font-size="27" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">B</tspan>
+</text>
+<text x="960" y="1250.0" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">Tiếp tại B ở phần 3</tspan>
+</text>
+<rect x="700.0" y="1285.0" width="520" height="70" rx="10" fill="#fff6f3" stroke="#8e3f36" stroke-width="2"/>
+<text x="960" y="1320.0" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">Báo không có nghiệm và kết thúc</tspan>
+</text>
+<circle cx="1610" cy="210" r="28" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="1610" y="210.0" font-size="27" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="1610" dy="0">B</tspan>
+</text>
+<rect x="1360.0" y="270.0" width="500" height="120" rx="10" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="1610" y="298.75" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="1610" dy="0">Giữ A dương, hữu hạn; bỏ nghiệm trùng</tspan>
+<tspan x="1610" dy="31.25">Các bước dưới áp dụng cho từng A</tspan>
+<tspan x="1610" dy="31.25">còn lại sau khi lọc</tspan>
+</text>
+<rect x="1360.0" y="425.0" width="500" height="150" rx="10" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="1610" y="467.5" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="1610" dy="0">S = κb²/A</tspan>
+<tspan x="1610" dy="32.5">cr = 2S / [b(1 + λ)]; ct = λcr</tspan>
+<tspan x="1610" dy="32.5">Tính sweep nửa dây và mép sau</tspan>
+</text>
+<rect x="1360.0" y="615.0" width="500" height="170" rx="10" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="1610" y="653.125" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="1610" dy="0">Tính lại aPH từ A, β và sweep nửa dây</tspan>
+<tspan x="1610" dy="31.25">CL = aPH αg</tspan>
+<tspan x="1610" dy="31.25">Lz = q S CL cos Γ</tspan>
+<tspan x="1610" dy="31.25">ε = |Lz − Ft| / Ft</tspan>
+</text>
+<rect x="1360.0" y="810.0" width="500" height="100" rx="10" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="1610" y="843.75" font-size="26" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="1610" dy="0">Loại kết quả không hữu hạn</tspan>
+<tspan x="1610" dy="32.5">hoặc có ε &gt; 10⁻⁸</tspan>
+</text>
+<path d="M 1610 940.0 L 1825.0 1000 L 1610 1060.0 L 1395.0 1000 Z" fill="#f5f8fa" stroke="#334e62" stroke-width="2"/>
+<text x="1610" y="1000.0" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="1610" dy="0">Còn nghiệm hợp lệ?</tspan>
+</text>
+<rect x="1360.0" y="1085.0" width="500" height="110" rx="10" fill="white" stroke="#334e62" stroke-width="2"/>
+<text x="1610" y="1108.75" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="1610" dy="0">Sắp xếp theo S tăng dần</tspan>
+<tspan x="1610" dy="31.25">Xuất mọi nghiệm S, cr, ct hợp lệ</tspan>
+<tspan x="1610" dy="31.25">và lưu ý phạm vi mô hình</tspan>
+</text>
+<rect x="1510.0" y="1213.0" width="200" height="54" rx="27.0" fill="#edf2f5" stroke="#334e62" stroke-width="2"/>
+<text x="1610" y="1240.0" font-size="26" font-weight="700" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="1610" dy="0">Kết thúc</tspan>
+</text>
+<rect x="1350.0" y="1285.0" width="520" height="70" rx="10" fill="#fff6f3" stroke="#8e3f36" stroke-width="2"/>
+<text x="1610" y="1320.0" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="1610" dy="0">Báo không có nghiệm hợp lệ và dừng</tspan>
+</text>
+<text x="960" y="1405.0" font-size="25" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">t = tan ΛLE;  k = κ(1 − λ)/(1 + λ);  K = 2πqκb²αg cos Γ;  d = β² + t².</tspan>
+</text>
+<text x="960" y="1446.0" font-size="24" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">κ = 1: tấm độc lập. κ = 2: cánh phẳng phản chiếu giả định. S, cr, ct luôn thuộc một tấm vật lý.</tspan>
+</text>
+<text x="960" y="1486.0" font-size="23" font-weight="400" text-anchor="middle" dominant-baseline="middle" fill="#172b3a">
+<tspan x="960" dy="0">Đây là kiểm nghiệm số của mô hình gần đúng; lực khí động thực tế cần được kiểm chứng độc lập.</tspan>
+</text>
+</g></svg>
