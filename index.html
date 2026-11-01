@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Tính S, cr, ct — Polhamus–Helmbold</title>
+<style>
+:root{color-scheme:light dark;--bg:#f4f6fa;--surface:#fff;--ink:#17283c;--muted:#53657b;--line:#d9e1eb;--accent:#08685e;--accent-ink:#fff;--soft:#e8f4f1;--error:#a22631;--error-bg:#fff1f2;--warning:#845300;--warning-bg:#fff7e6;--field:#fff;--shadow:0 8px 28px #152b4210;--plot:#0b7b6c;--plot-fill:#dcefe9}
+@media(prefers-color-scheme:dark){:root{--bg:#111923;--surface:#1b2633;--ink:#e8eff8;--muted:#adbbcc;--line:#344458;--accent:#75d3bf;--accent-ink:#10271f;--soft:#203d38;--error:#ffadb5;--error-bg:#40272e;--warning:#f5cd7e;--warning-bg:#3c3322;--field:#14202c;--shadow:none;--plot:#79d9c6;--plot-fill:#24473f}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button,a,input,select,summary{touch-action:manipulation}button{cursor:pointer}button:disabled{cursor:default;opacity:.45}a{color:var(--accent);text-underline-offset:3px}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}main{max-width:1180px;margin:auto;padding:34px 28px 30px}header{margin-bottom:24px}.eyebrow{color:var(--accent);font-weight:650;letter-spacing:.08em;text-transform:uppercase;font-size:12px;margin:0 0 8px}h1{font-size:clamp(25px,3.8vw,35px);line-height:1.2;letter-spacing:-.035em;margin:0 0 10px}header p{max-width:770px;color:var(--muted);margin:0}h2{font-size:17px;letter-spacing:-.02em;margin:0}h3{font-size:15px;margin:0}.layout{display:grid;grid-template-columns:minmax(310px,390px) minmax(0,1fr);gap:22px;align-items:start}.panel{background:var(--surface);border:1px solid var(--line);border-radius:17px;padding:22px;box-shadow:var(--shadow);min-width:0}.panel-head{display:flex;align-items:baseline;gap:14px;justify-content:space-between;margin-bottom:17px}.caption{color:var(--muted);font-size:13px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px}.field{display:flex;flex-direction:column;gap:6px;min-width:0}.field.full{grid-column:1/-1}label{font-size:13px;font-weight:550;color:var(--ink)}.input-wrap{display:flex;border:1px solid var(--line);border-radius:9px;background:var(--field);align-items:center;min-width:0}.input-wrap:focus-within{outline:2px solid var(--accent);outline-offset:1px}.input-wrap input{border:0;outline:none;background:transparent;color:var(--ink);width:100%;min-width:0;padding:10px 11px;font-size:16px;font-variant-numeric:tabular-nums}.input-wrap input:focus-visible{outline:none}.unit{color:var(--muted);font-size:12px;padding-right:10px;white-space:nowrap}select{width:100%;border:1px solid var(--line);border-radius:9px;background:var(--field);color:var(--ink);padding:10px;min-width:0;font-size:14px}.field small{font-size:12px;color:var(--muted)}details{margin-top:19px}summary{cursor:pointer;font-weight:550;font-size:14px}details .form-grid{margin-top:14px}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.btn{border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink);padding:10px 14px;font-size:14px;font-weight:550;line-height:1.3}.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}.form-note{font-size:12px;color:var(--muted);margin:14px 0 0}.results{min-width:0}.result-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:0 0 14px;flex-wrap:wrap}.status{font-size:12px;color:var(--accent);background:var(--soft);padding:4px 9px;border-radius:6px}.status.invalid{color:var(--error);background:var(--error-bg)}.metric-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.metric{padding:17px 15px;border:1px solid var(--line);border-radius:13px;min-width:0;background:var(--surface)}.metric-label{color:var(--muted);font-size:13px}.metric-value{font-size:clamp(22px,3vw,30px);line-height:1.3;letter-spacing:-.035em;font-weight:650;margin-top:8px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.metric-value small{font-size:13px;font-weight:450;letter-spacing:0;margin-left:3px}.metric-sub{font-size:11px;color:var(--muted);margin-top:7px;overflow-wrap:anywhere}.result-context{font-size:12px;color:var(--muted);margin:12px 0 17px}.figure-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}.diagram{display:block;width:100%;height:255px;margin-top:7px;overflow:visible}.diagram text{font-family:inherit;font-size:12px;fill:var(--ink)}.diagram .wing{fill:var(--plot-fill);stroke:var(--plot);stroke-width:1.7}.diagram .dimension{stroke:var(--muted);stroke-width:1;fill:none}.diagram .extension{stroke:var(--line);stroke-width:1;fill:none}.diagram .edge-label{fill:var(--muted);font-size:11px}.diagram-empty{height:230px;display:grid;place-items:center;color:var(--muted);text-align:center;padding:22px}.messages:empty{display:none}.message{padding:12px 14px;border-radius:10px;margin:13px 0;font-size:13px;overflow-wrap:anywhere}.message.error{background:var(--error-bg);color:var(--error)}.message.warning{background:var(--warning-bg);color:var(--warning)}.branch{margin:14px 0}.branch[hidden], [hidden]{display:none!important}.diagnostics{padding-top:15px;border-top:1px solid var(--line)}.diagnostics summary{display:flex;justify-content:space-between;gap:10px}.check-result{color:var(--accent);font-size:12px;font-weight:450}.data-table{border-collapse:collapse;width:100%;margin-top:12px;font-size:13px}.data-table th,.data-table td{padding:8px 0;border-bottom:1px solid var(--line);font-weight:400;text-align:left;vertical-align:top}.data-table td{text-align:right;font-variant-numeric:tabular-nums;padding-left:14px}.data-table th{color:var(--muted);width:58%}.export{margin-top:16px;display:flex;gap:9px;flex-wrap:wrap}.export .btn{font-size:12px;padding:9px 12px}.copy-status{display:block;min-height:18px;font-size:12px;color:var(--accent);margin-top:7px}.assumption{margin:18px 0 0;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:15px}.method{margin-top:23px;padding-top:18px;border-top:1px solid var(--line)}.method p{font-size:13px;margin:10px 0;color:var(--muted)}.equations{font-size:13px;line-height:1.9;background:var(--surface);border-radius:10px;padding:14px 16px;overflow-wrap:anywhere}.equations code{font-family:"Consolas",monospace;font-size:12px}.footer{color:var(--muted);font-size:12px;margin-top:24px;display:flex;gap:15px;justify-content:space-between;flex-wrap:wrap}.no-js{color:var(--error);padding:15px;background:var(--error-bg)}
+@media(max-width:870px){main{padding:24px 20px}.layout{grid-template-columns:minmax(280px,340px) minmax(0,1fr);gap:16px}.panel{padding:18px}.metric-grid{gap:8px}.metric{padding:13px 10px}.metric-value{font-size:24px}.metric-value small{display:block;margin:3px 0 0}.metric-sub{font-size:11px}}
+@media(max-width:720px){.layout{grid-template-columns:1fr}.metric-value{font-size:30px}.metric-value small{display:inline;margin-left:3px}.panel{padding:20px}.diagram{height:240px}.result-head{margin-top:1px}header{margin-bottom:20px}}
+@media(max-width:420px){.metric-grid{grid-template-columns:1fr}.metric{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center}.metric-value{grid-column:2;grid-row:1/3;margin:0;font-size:29px}.metric-value small{display:inline;margin-left:3px}.metric-sub{margin-top:3px}.metric-label{align-self:end}}
+@media(max-width:390px){main{padding:20px 13px}.panel{padding:16px}.metric-grid{gap:8px}.metric{padding:12px}.form-grid{gap:14px 10px}.metric-sub{font-size:11px}}
+@media print{body{background:white;color:black}main{padding:0;max-width:none}.actions,.export,.copy-status{display:none}.panel{box-shadow:none}.layout{grid-template-columns:1fr 1.5fr}details{display:block}details>*{display:block}.diagram{height:240px}}
+</style>
+<style>
+.cad-export{border-top:1px solid var(--line);padding-top:17px;margin-top:14px}.cad-export .field{margin:12px 0}.cad-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}.cad-help{font-size:12px;color:var(--muted);margin:10px 0 0}.cad-code details{margin-top:14px}.cad-code pre{margin:10px 0 0;padding:13px;background:var(--field);border:1px solid var(--line);border-radius:9px;max-height:360px;overflow:auto;font:12px/1.55 Consolas,monospace;tab-size:4}.cad-actions .btn{font-size:12px}.cad-code summary{font-size:13px}
+</style>
+</head>
+<body>
+<main id="wing-sizing-app">
+  <header>
+    <p class="eyebrow">Khí động cánh · Công cụ sơ bộ</p>
+    <h1>Nhập thông số. Tính S, cᵣ, cₜ.</h1>
+    <p>Tính kích thước của <strong>một tấm cánh hình thang</strong> theo lực đứng mục tiêu, với mô hình Polhamus–Helmbold và phép chiếu dihedral gần đúng.</p>
+  </header>
+  <noscript><p class="no-js">Cần bật JavaScript trong trình duyệt để dùng công cụ này.</p></noscript>
+  <div class="layout">
+    <section class="panel" aria-labelledby="input-heading">
+      <div class="panel-head"><h2 id="input-heading">Thông số đầu vào</h2><span class="caption">Mỗi tấm cánh</span></div>
+      <form id="sizing-form" novalidate>
+        <div class="form-grid">
+          <div class="field"><label for="targetGf">Lực đứng L<sub>z</sub></label><div class="input-wrap"><input id="targetGf" name="targetGf" inputmode="decimal" type="text" required><span class="unit">gf</span></div></div>
+          <div class="field"><label for="speedKmh">Vận tốc V</label><div class="input-wrap"><input id="speedKmh" name="speedKmh" inputmode="decimal" type="text" required><span class="unit">km/h</span></div></div>
+          <div class="field"><label for="spanMm">Sải thực b</label><div class="input-wrap"><input id="spanMm" name="spanMm" inputmode="decimal" type="text" required><span class="unit">mm</span></div><small>Gốc–đầu trong mặt phẳng cánh</small></div>
+          <div class="field"><label for="taper">Taper λ = c<sub>t</sub>/c<sub>r</sub></label><div class="input-wrap"><input id="taper" name="taper" inputmode="decimal" type="text" required><span class="unit">0 &lt; λ ≤ 1</span></div></div>
+          <div class="field"><label for="alphaDeg">Góc tấn thân α</label><div class="input-wrap"><input id="alphaDeg" name="alphaDeg" inputmode="decimal" type="text" required><span class="unit">°</span></div></div>
+          <div class="field"><label for="dihedralDeg">Dihedral Γ</label><div class="input-wrap"><input id="dihedralDeg" name="dihedralDeg" inputmode="decimal" type="text" required><span class="unit">°</span></div></div>
+          <div class="field full"><label for="sweepLeDeg">Sweep mép trước Λ<sub>LE</sub></label><div class="input-wrap"><input id="sweepLeDeg" name="sweepLeDeg" inputmode="decimal" type="text" required><span class="unit">°</span></div><small>Đo trong mặt phẳng cánh; dương khi quét lùi</small></div>
+        </div>
+        <details id="advanced-settings"><summary>Điều kiện khí quyển và quy ước AR</summary>
+          <div class="form-grid">
+            <div class="field"><label for="rho">Mật độ ρ</label><div class="input-wrap"><input id="rho" name="rho" inputmode="decimal" type="text" required><span class="unit">kg/m³</span></div></div>
+            <div class="field"><label for="temperatureK">Nhiệt độ T</label><div class="input-wrap"><input id="temperatureK" name="temperatureK" inputmode="decimal" type="text" required><span class="unit">K</span></div></div>
+            <div class="field full"><label for="arFactor">Cánh tham chiếu của mô hình</label><select id="arFactor" name="arFactor"><option value="1">Tấm đơn: A = b²/S — đang sử dụng</option><option value="2">Cánh phẳng phản chiếu: A = 2b²/S</option></select><small>b và S ở đầu vào/kết quả luôn thuộc một tấm.</small></div>
+          </div>
+        </details>
+        <div class="actions"><button class="btn primary" type="submit" id="calculate-button">Tính kích thước</button><button class="btn" type="button" id="default-button">Bộ mặc định</button></div>
+        <p class="form-note">Dùng dấu phẩy hoặc dấu chấm cho phần thập phân. a₀ cố định 2π/rad; không đưa e = 0,8 vào PH.</p>
+      </form>
+    </section>
+    <section class="panel results" aria-labelledby="result-heading">
+      <div class="result-head"><h2 id="result-heading">Kích thước một tấm cánh</h2><span class="status" id="status" role="status" aria-live="polite">Đang tính</span></div>
+      <div class="metric-grid" aria-live="polite" aria-atomic="true">
+        <div class="metric"><div class="metric-label">Diện tích S</div><div class="metric-value"><span id="area-value">—</span><small>cm²</small></div><div class="metric-sub" id="area-secondary">— mm²</div></div>
+        <div class="metric"><div class="metric-label">Chord gốc c<sub>r</sub></div><div class="metric-value"><span id="cr-value">—</span><small>mm</small></div><div class="metric-sub">Dây cung tại gốc</div></div>
+        <div class="metric"><div class="metric-label">Chord đầu c<sub>t</sub></div><div class="metric-value"><span id="ct-value">—</span><small>mm</small></div><div class="metric-sub">Dây cung tại đầu</div></div>
+      </div>
+      <p class="result-context" id="result-context">Diện tích trong mặt phẳng cánh</p>
+      <div class="messages" id="messages"></div>
+      <div class="field branch" id="branch-container" hidden><label for="branch-select">Nhánh nghiệm</label><select id="branch-select"></select></div>
+      <div class="figure-head"><h3>Planform trong mặt phẳng cánh</h3><span class="caption">Không phải hình chiếu ngang</span></div>
+      <svg class="diagram" id="planform" role="img" aria-label="Hình thang cánh với chord gốc, chord đầu và sải thực"></svg>
+      <div class="diagram-empty" id="diagram-empty" hidden>Bấm “Tính kích thước” để cập nhật hình học.</div>
+      <details class="diagnostics" id="model-checks"><summary><span>Kiểm tra kết quả</span><span class="check-result" id="force-check">—</span></summary>
+        <table class="data-table"><tbody id="diagnostic-rows"></tbody></table>
+      </details>
+      <div class="export"><button class="btn" id="copy-button" type="button" disabled>Sao chép thông số</button><button class="btn" id="csv-button" type="button" disabled>Tải kết quả CSV</button></div>
+      <span class="copy-status" id="copy-status" role="status" aria-live="polite"></span>
+      <section class="cad-export" aria-labelledby="cad-heading">
+        <h3 id="cad-heading">Vẽ cánh NACA 0012 trong SpaceClaim</h3>
+        <div class="field"><label for="cad-mode">Hình học cần dựng</label><select id="cad-mode"><option value="solid_profiles">Solid cánh + hai tiết diện root/tip</option><option value="solid_only">Chỉ solid cánh</option><option value="profiles">Chỉ hai tiết diện root/tip</option></select></div>
+        <div class="cad-actions"><button class="btn primary" id="cad-download-button" type="button" disabled>Tải script SpaceClaim (.py)</button><button class="btn" id="cad-copy-button" type="button" disabled>Sao chép toàn bộ mã</button></div>
+        <p class="cad-help">Mã lấy kích thước từ nghiệm đang chọn, có sẵn DAT 66 + 66 điểm. Mở tệp .py trong SpaceClaim 2025 R2 → API V252 → Run Script. Script tạo một document mới.</p>
+        <span class="copy-status" id="cad-status" role="status" aria-live="polite"></span>
+        <div class="cad-code"><details id="cad-code-details"><summary>Xem mã Python vẽ cánh</summary><pre><code id="cad-code">Tính kích thước để tạo mã vẽ.</code></pre></details></div>
+      </section>
+      <p class="assumption">Kết quả lý thuyết cho airfoil đối xứng, góc không lực nâng 0°, góc đặt và xoắn bằng 0, không sideslip, a₀ = 2π/rad. Chưa xét giao thoa bốn cánh, thân, đuôi, dòng cánh quạt hoặc xác nhận airfoil ở Reynolds thực.</p>
+    </section>
+  </div>
+  <details class="method"><summary>Công thức và phạm vi sử dụng</summary>
+    <div class="equations">
+      <div>S = b(c<sub>r</sub> + c<sub>t</sub>)/2; c<sub>t</sub> = λc<sub>r</sub>; A = k<sub>AR</sub>b²/S.</div>
+      <div>tan Λ<sub>c/2</sub> = tan Λ<sub>LE</sub> + (c<sub>t</sub> − c<sub>r</sub>)/(2b).</div>
+      <div>α<sub>g</sub> = atan(tan α · cos Γ); q = ρV²/2; M = V/√(1,4RT).</div>
+      <div>a<sub>PH</sub> = 2πA / [2 + √(4 + A²(1 − M² + tan²Λ<sub>c/2</sub>))].</div>
+      <div>C<sub>L</sub> ≈ a<sub>PH</sub>α<sub>g</sub>; L<sub>z</sub> ≈ qSC<sub>L</sub>cos Γ.</div>
+    </div>
+    <p>k<sub>AR</sub> = 1 cho tấm đơn, hoặc 2 cho cánh phẳng phản chiếu giả định. Tất cả diện tích và chord đầu ra vẫn tính cho một tấm. Góc được đổi sang radian khi tính; R = 287,05287 J/(kg·K), g₀ = 9,80665 m/s². Nhiệt độ và mật độ là hai đầu vào độc lập.</p>
+    <p>Đây là phép tính sơ bộ trong miền lực nâng tuyến tính, dòng bám và dưới âm. Bộ số liệu hợp lệ về toán học không chứng minh mô hình khí động đúng ở điều kiện đó. “Không có nghiệm” chỉ nói về mô hình và giả thiết đang chọn. gf là đơn vị lực, không phải khối lượng g.</p>
+    <p>Nguồn: <a href="https://ntrs.nasa.gov/citations/19930084818" target="_blank" rel="noopener noreferrer">NACA TN 3911, phụ lục</a> · <a href="https://ntrs.nasa.gov/citations/19780017135" target="_blank" rel="noopener noreferrer">NASA-CR-157210, mục 11.2</a>.</p>
+  </details>
+  <footer class="footer"><span>Tính cục bộ trên máy · Không cần Internet</span><span>Polhamus–Helmbold / a₀ = 2π</span></footer>
+</main>
+<script>
+/* Polhamus-Helmbold inverse model; SI internally, one physical panel. */
+(function (root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.WingSizing = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+  const G0 = 9.80665, R = 287.05287, GAMMA_AIR = 1.4;
+  const defaults = Object.freeze({
+    targetGf: 87.5, speedKmh: 150, spanMm: 150, taper: 0.5,
+    alphaDeg: 5, dihedralDeg: 45, sweepLeDeg: 20,
+    rho: 1.225, temperatureK: 288.15, arFactor: 1
+  });
+  const labels = {
+    targetGf: 'Lực đứng mỗi tấm', speedKmh: 'Vận tốc', spanMm: 'Sải một tấm',
+    taper: 'Taper ratio', alphaDeg: 'Góc tấn thân', dihedralDeg: 'Dihedral',
+    sweepLeDeg: 'Sweep mép trước', rho: 'Mật độ không khí',
+    temperatureK: 'Nhiệt độ', arFactor: 'Quy ước cánh tham chiếu'
+  };
+  class ModelError extends Error {
+    constructor(code, message, details = {}) {
+      super(message); this.name = 'ModelError'; this.code = code; this.details = details;
+    }
+  }
+  function prepare(values) {
+    const p = Object.assign({}, defaults, values);
+    for (const key of Object.keys(defaults)) {
+      if (typeof p[key] !== 'number' || !Number.isFinite(p[key])) {
+        throw new ModelError('INPUT', labels[key] + ': cần nhập một số hữu hạn.');
+      }
+    }
+    for (const key of ['targetGf', 'speedKmh', 'spanMm', 'rho', 'temperatureK']) {
+      if (p[key] <= 0) throw new ModelError('INPUT', labels[key] + ' phải lớn hơn 0.');
+    }
+    if (!(p.taper > 0 && p.taper <= 1)) {
+      throw new ModelError('INPUT', 'Taper ratio phải thỏa 0 < λ ≤ 1.');
+    }
+    if (!(p.alphaDeg > 0 && p.alphaDeg < 90)) {
+      throw new ModelError('INPUT', 'Để có tải đứng dương, nhập 0° < α < 90°. Mô hình tuyến tính cần góc tấn nhỏ.');
+    }
+    if (Math.abs(p.dihedralDeg) >= 90) {
+      throw new ModelError('INPUT', 'Dihedral phải nằm trong khoảng −90° < Γ < 90°.');
+    }
+    if (Math.abs(p.sweepLeDeg) >= 89) {
+      throw new ModelError('INPUT', 'Nhập sweep mép trước trong khoảng −89° < Λ_LE < 89°.');
+    }
+    if (![1, 2].includes(p.arFactor)) throw new ModelError('INPUT', 'Hệ số quy ước AR chỉ nhận 1 hoặc 2.');
+    const rad = Math.PI / 180;
+    const V = p.speedKmh / 3.6, b = p.spanMm / 1000;
+    const soundSpeed = Math.sqrt(GAMMA_AIR * R * p.temperatureK);
+    const mach = V / soundSpeed;
+    if (!(mach < 1)) throw new ModelError('MACH', 'Công thức đang dùng chỉ xét dưới âm: cần M < 1.');
+    const beta2 = 1 - mach * mach, beta = Math.sqrt(beta2);
+    const q = 0.5 * p.rho * V * V;
+    const alpha = p.alphaDeg * rad, gamma = p.dihedralDeg * rad;
+    const cosGamma = Math.cos(gamma);
+    const alphaG = Math.atan2(Math.sin(alpha) * cosGamma, Math.cos(alpha));
+    const t = Math.tan(p.sweepLeDeg * rad);
+    const k = p.arFactor * (1 - p.taper) / (1 + p.taper);
+    const C = q * 2 * Math.PI * p.arFactor * b * b * alphaG * cosGamma;
+    if (!(C > 0 && Number.isFinite(C))) throw new ModelError('RANGE', 'Bộ số liệu vượt miền số học của công cụ.');
+    return { p, V, b, q, mach, beta, beta2, soundSpeed, alphaG, cosGamma, t, k, C };
+  }
+  function forceAtA(A, s) {
+    return s.C / (2 + Math.hypot(2, s.beta * A, s.t * A - s.k));
+  }
+  function dimensionFromA(A, s) {
+    const { p, b, q, beta2, alphaG, t, k } = s;
+    const areaM2 = p.arFactor * b * b / A;
+    const crM = 2 * areaM2 / (b * (1 + p.taper)), ctM = p.taper * crM;
+    const tanHalf = t - k / A;
+    const halfSweepDeg = Math.atan(tanHalf) * 180 / Math.PI;
+    const teSweepDeg = Math.atan(t + (ctM - crM) / b) * 180 / Math.PI;
+    const a3d = 2 * Math.PI * A / (2 + Math.hypot(2, A * Math.sqrt(beta2), A * tanHalf));
+    const CL = a3d * alphaG;
+    // Forward substitution uses the original force equation.
+    const forceN = q * areaM2 * CL * s.cosGamma;
+    const targetN = p.targetGf * G0 / 1000;
+    return {
+      areaM2, areaMm2: areaM2 * 1e6, areaCm2: areaM2 * 1e4,
+      crMm: crM * 1000, ctMm: ctM * 1000,
+      panelAR: b * b / areaM2, modelAR: A,
+      halfSweepDeg, teSweepDeg, a3d, CL, forceN,
+      forceGf: forceN * 1000 / G0, residualN: forceN - targetN,
+      relativeResidual: Math.abs(forceN - targetN) / targetN
+    };
+  }
+  function calculate(values = {}) {
+    const s = prepare(values), p = s.p;
+    const d = s.beta2 + s.t * s.t, tk = s.t * s.k;
+    const peakA = Math.max(0, tk / d);
+    const maxModelN = forceAtA(peakA, s);
+    const limitInfiniteAreaN = forceAtA(0, s);
+    const targetN = p.targetGf * G0 / 1000;
+    const maxModelGf = maxModelN * 1000 / G0;
+    const limits = { maxModelN, maxModelGf, peakA, limitInfiniteAreaN, attainedAtFiniteArea: peakA > 0 };
+    if (targetN > maxModelN * (1 + 1e-12)) {
+      throw new ModelError('NO_ROOT', 'Không có nghiệm dương với bộ thông số này trong mô hình đang chọn.', limits);
+    }
+    const h = s.C / targetN - 2;
+    const h2minus4 = (h - 2) * (h + 2);
+    let discriminant = d * h2minus4 - s.beta2 * s.k * s.k;
+    const scale = Math.max(1, Math.abs(d * h2minus4), s.beta2 * s.k * s.k);
+    if (h < 2 - 1e-12 || discriminant < -1e-12 * scale) {
+      throw new ModelError('NO_ROOT', 'Không có nghiệm hữu hạn trong mô hình đang chọn.', limits);
+    }
+    discriminant = Math.abs(discriminant) <= 64 * Number.EPSILON * scale ? 0 : Math.max(0, discriminant);
+    const sqrtD = Math.sqrt(discriminant);
+    const c = s.k * s.k - h2minus4;
+    // Stable quadratic roots: avoid cancellation near the second positive root.
+    const qroot = tk + (tk >= 0 ? sqrtD : -sqrtD);
+    const candidates = qroot === 0 ? [tk / d] : [qroot / d, c / qroot];
+    const unique = [];
+    for (const A of candidates) {
+      if (!(A > 0 && Number.isFinite(A))) continue;
+      if (unique.some(v => Math.abs(A - v) <= 1e-10 * Math.max(A, v))) continue;
+      const r = dimensionFromA(A, s);
+      if (!Object.values(r).every(Number.isFinite) || r.relativeResidual > 1e-8) continue;
+      unique.push(A);
+    }
+    const roots = unique.map(A => dimensionFromA(A, s)).sort((a, b) => a.areaM2 - b.areaM2);
+    if (!roots.length) {
+      throw new ModelError('NO_FINITE_ROOT', 'Không tìm được kích thước dương, hữu hạn; tải có thể ở giới hạn tiệm cận của mô hình.', limits);
+    }
+    const warnings = [];
+    if (roots.length > 1) warnings.push('Có hai nghiệm dương. Chọn nhánh bên dưới; diện tích nhỏ hơn không có nghĩa là thiết kế tối ưu.');
+    if (p.arFactor === 2) warnings.push('AR của cánh phẳng phản chiếu là một giả định tham chiếu; chưa xác nhận tương tác của hệ bốn cánh X.');
+    if (s.alphaG * 180 / Math.PI > 10) warnings.push('Góc tấn tiết diện đang lớn: cần kiểm tra lại giả thiết lực nâng tuyến tính và dòng bám.');
+    if (roots[0].modelAR < 2) warnings.push('Aspect ratio thấp; kết quả cần đối chiếu bằng mô hình 3D phù hợp.');
+    return {
+      inputs: p, roots, warnings, limits,
+      flow: { speedMs: s.V, qPa: s.q, mach: s.mach, beta: s.beta,
+        soundSpeedMs: s.soundSpeed, alphaGDeg: s.alphaG * 180 / Math.PI }
+    };
+  }
+  function forceAtChord(crMm, values = {}) {
+    if (!(typeof crMm === 'number' && Number.isFinite(crMm) && crMm > 0)) {
+      throw new ModelError('INPUT', 'Chord gốc phải là số dương.');
+    }
+    const s = prepare(values);
+    const S = s.b * (crMm / 1000) * (1 + s.p.taper) / 2;
+    return dimensionFromA(s.p.arFactor * s.b * s.b / S, s);
+  }
+  return { defaults, calculate, forceAtChord, ModelError, constants: { G0, R, GAMMA_AIR } };
+});
+
+</script>
+<script>
+window.WING_CAD_TEMPLATE = "# Python Script, API Version = V252\n# -*- coding: utf-8 -*-\n\"\"\"One tapered NACA 0012 panel, using the user's Lednicer DAT coordinates.\n\nRun this file INSIDE SpaceClaim's Script Editor, not in ordinary Python.\nDimensions below are millimetres. SpaceClaim's geometry API uses metres.\nCreates a NEW document; does not delete or edit an existing model.\n\"\"\"\n\nimport math\nimport os\nimport io\nimport json\n\n# ---------- USER PARAMETERS / THONG SO NGUOI DUNG ----------\nCR_MM = 39.20\nCT_MM = 19.60\nSPAN_MM = 150.0                 # actual span in the panel plane, NOT LE length\nSWEEP_LE_DEG = 20.0             # measured in the panel plane\nDIHEDRAL_DEG = 45.0             # use -45.0 for the downward panel, 0.0 for flat\nCREATE_SOLID = True             # False: draw the root/tip outlines only\nKEEP_PROFILE_CURVES = True\nFIT_TOLERANCE_MM = 0.0001\nDAT_PATH = None                 # None: use the exact embedded data below\n# Optional: set to r\"D:\\my_output\" to save SCDOCX and validation files.\nSAVE_DIRECTORY = globals().get(\"NACA_BATCH_OUTPUT_DIR\", None)\nRUN_IN_SPACECLAIM = globals().get(\"RUN_IN_SPACECLAIM\", True)\n\n# The flight angle of attack is NOT a CAD incidence/twist angle.\n# Chords remain parallel to global X. No geometric twist is introduced.\nDAT_TEXT = \"\"\"NACA 0012 AIRFOILS\n66. 66.\n0.0000000 0.0000000\n0.0005839 0.0042603\n0.0023342 0.0084289\n0.0052468 0.0125011\n0.0093149 0.0164706\n0.0145291 0.0203300\n0.0208771 0.0240706\n0.0283441 0.0276827\n0.0369127 0.0311559\n0.0465628 0.0344792\n0.0572720 0.0376414\n0.0690152 0.0406310\n0.0817649 0.0434371\n0.0954915 0.0460489\n0.1101628 0.0484567\n0.1257446 0.0506513\n0.1422005 0.0526251\n0.1594921 0.0543715\n0.1775789 0.0558856\n0.1964187 0.0571640\n0.2159676 0.0582048\n0.2361799 0.0590081\n0.2570083 0.0595755\n0.2784042 0.0599102\n0.3003177 0.0600172\n0.3226976 0.0599028\n0.3454915 0.0595747\n0.3686463 0.0590419\n0.3921079 0.0583145\n0.4158215 0.0574033\n0.4397317 0.0563200\n0.4637826 0.0550769\n0.4879181 0.0536866\n0.5120819 0.0521620\n0.5362174 0.0505161\n0.5602683 0.0487619\n0.5841786 0.0469124\n0.6078921 0.0449802\n0.6313537 0.0429778\n0.6545085 0.0409174\n0.6773025 0.0388109\n0.6996823 0.0366700\n0.7215958 0.0345058\n0.7429917 0.0323294\n0.7638202 0.0301515\n0.7840324 0.0279828\n0.8035813 0.0258337\n0.8224211 0.0237142\n0.8405079 0.0216347\n0.8577995 0.0196051\n0.8742554 0.0176353\n0.8898372 0.0157351\n0.9045085 0.0139143\n0.9182351 0.0121823\n0.9309849 0.0105485\n0.9427280 0.0090217\n0.9534372 0.0076108\n0.9630873 0.0063238\n0.9716559 0.0051685\n0.9791229 0.0041519\n0.9854709 0.0032804\n0.9906850 0.0025595\n0.9947532 0.0019938\n0.9976658 0.0015870\n0.9994161 0.0013419\n1.0000000 0.0012600\n\n0.0000000 0.0000000\n0.0005839 -.0042603\n0.0023342 -.0084289\n0.0052468 -.0125011\n0.0093149 -.0164706\n0.0145291 -.0203300\n0.0208771 -.0240706\n0.0283441 -.0276827\n0.0369127 -.0311559\n0.0465628 -.0344792\n0.0572720 -.0376414\n0.0690152 -.0406310\n0.0817649 -.0434371\n0.0954915 -.0460489\n0.1101628 -.0484567\n0.1257446 -.0506513\n0.1422005 -.0526251\n0.1594921 -.0543715\n0.1775789 -.0558856\n0.1964187 -.0571640\n0.2159676 -.0582048\n0.2361799 -.0590081\n0.2570083 -.0595755\n0.2784042 -.0599102\n0.3003177 -.0600172\n0.3226976 -.0599028\n0.3454915 -.0595747\n0.3686463 -.0590419\n0.3921079 -.0583145\n0.4158215 -.0574033\n0.4397317 -.0563200\n0.4637826 -.0550769\n0.4879181 -.0536866\n0.5120819 -.0521620\n0.5362174 -.0505161\n0.5602683 -.0487619\n0.5841786 -.0469124\n0.6078921 -.0449802\n0.6313537 -.0429778\n0.6545085 -.0409174\n0.6773025 -.0388109\n0.6996823 -.0366700\n0.7215958 -.0345058\n0.7429917 -.0323294\n0.7638202 -.0301515\n0.7840324 -.0279828\n0.8035813 -.0258337\n0.8224211 -.0237142\n0.8405079 -.0216347\n0.8577995 -.0196051\n0.8742554 -.0176353\n0.8898372 -.0157351\n0.9045085 -.0139143\n0.9182351 -.0121823\n0.9309849 -.0105485\n0.9427280 -.0090217\n0.9534372 -.0076108\n0.9630873 -.0063238\n0.9716559 -.0051685\n0.9791229 -.0041519\n0.9854709 -.0032804\n0.9906850 -.0025595\n0.9947532 -.0019938\n0.9976658 -.0015870\n0.9994161 -.0013419\n1.0000000 -.0012600\n\"\"\"\n\n\ndef parse_lednicer(text):\n    \"\"\"Read count line + separate upper/lower LE-to-TE point blocks.\"\"\"\n    rows = []\n    for raw in text.splitlines():\n        fields = raw.strip().split()\n        if len(fields) != 2:\n            continue\n        try:\n            row = (float(fields[0]), float(fields[1]))\n        except ValueError:\n            continue\n        if not all(not math.isnan(v) and not math.isinf(v) for v in row):\n            raise ValueError(\"DAT contains NaN/Inf.\")\n        rows.append(row)\n    if not rows:\n        raise ValueError(\"No numeric data in DAT.\")\n    nu, nl = rows[0]\n    if nu != int(nu) or nl != int(nl) or min(nu, nl) \u003c 3:\n        raise ValueError(\"Expected a Lednicer count line, e.g. 66. 66.\")\n    nu, nl = int(nu), int(nl)\n    if len(rows) != 1 + nu + nl:\n        raise ValueError(\"DAT point count does not match its header.\")\n    upper = rows[1:1+nu]\n    lower = rows[1+nu:]\n    for side in (upper, lower):\n        if abs(side[0][0]) > 1e-8 or abs(side[0][1]) > 1e-8:\n            raise ValueError(\"Each side must start at the leading edge (0,0).\")\n        if abs(side[-1][0]-1.0) > 1e-8:\n            raise ValueError(\"Each side must end at x/c=1.\")\n        if any(side[i+1][0] \u003c= side[i][0] for i in range(len(side)-1)):\n            raise ValueError(\"Expected strictly increasing x/c on each side.\")\n    if any(p[1] \u003c -1e-8 for p in upper) or any(p[1] > 1e-8 for p in lower):\n        raise ValueError(\"Upper/lower surfaces have unexpected signs.\")\n    # Upper TE -> LE -> lower TE. Remove only the duplicated leading edge.\n    outline = list(reversed(upper)) + lower[1:]\n    if abs(outline[0][1]-outline[-1][1]) \u003c 1e-10:\n        raise ValueError(\"This script expects the finite trailing edge in the supplied DAT.\")\n    return upper, lower, outline\n\n\ndef xyz_mm(xc, yc, chord_mm, span_station_mm, gamma_deg):\n    \"\"\"Scale DAT, apply LE sweep in panel plane, then rotate about X.\"\"\"\n    g = math.radians(gamma_deg)\n    thickness_coord = chord_mm * yc\n    return (span_station_mm * math.tan(math.radians(SWEEP_LE_DEG)) + chord_mm * xc,\n            span_station_mm * math.cos(g) - thickness_coord * math.sin(g),\n            span_station_mm * math.sin(g) + thickness_coord * math.cos(g))\n\n\ndef polygon_area(points):\n    return abs(sum(points[i][0]*points[(i+1) % len(points)][1] -\n                   points[(i+1) % len(points)][0]*points[i][1]\n                   for i in range(len(points)))) / 2.0\n\n\ndef build_wing():\n    # These imports are SpaceClaim-native; no pip installation is required.\n    from System import Array\n    from System.Collections.Generic import List\n    from SpaceClaim.Api.V252 import Document, DesignBody, DesignCurve, InteractionMode\n    from SpaceClaim.Api.V252.Geometry import Point, NurbsCurve, CurveSegment, ITrimmedCurve\n    from SpaceClaim.Api.V252.Geometry import Plane, Frame, Direction, Matrix, Vector, Interval\n    from SpaceClaim.Api.V252.Geometry import NurbsData, Knot, ControlPoint, NurbsSurface, BoxUV\n    from SpaceClaim.Api.V252.Modeler import Body\n    from SpaceClaim.Api.V252.Scripting.Commands import DocumentSave\n    from SpaceClaim.Api.V252.Scripting.Selection import Selection\n    from SpaceClaim.Api.V252.Scripting.Helpers import ViewHelper\n\n    if min(CR_MM, CT_MM, SPAN_MM, FIT_TOLERANCE_MM) \u003c= 0:\n        raise ValueError(\"Chord, span and fit tolerance must be positive.\")\n    if abs(SWEEP_LE_DEG) >= 89.0 or abs(DIHEDRAL_DEG) >= 89.0:\n        raise ValueError(\"Use sweep/dihedral magnitudes below 89 degrees.\")\n    text = DAT_TEXT\n    if DAT_PATH:\n        with io.open(DAT_PATH, \"r\", encoding=\"utf-8-sig\") as stream:\n            text = stream.read()\n    upper, lower, outline = parse_lednicer(text)\n\n    def make_profile(chord, station):\n        points = List[Point]()\n        for xc, yc in outline:\n            x, y, z = xyz_mm(xc, yc, chord, station, DIHEDRAL_DEG)\n            points.Add(Point.Create(x*0.001, y*0.001, z*0.001))\n        # Fit one spline for a smooth LE, then split its parameter interval\n        # at LE. The explicit LE vertex forces correct root/tip correspondence.\n        spline = NurbsCurve.CreateThroughPoints(False, points, FIT_TOLERANCE_MM*0.001)\n        segments = List[ITrimmedCurve]()\n        outline_segment = CurveSegment.Create(spline)\n        leading_edge_param = spline.ProjectPoint(points[len(upper)-1]).Param\n        segments.Add(CurveSegment.Create(spline,Interval.Create(outline_segment.Bounds.Start,leading_edge_param)))\n        segments.Add(CurveSegment.Create(spline,Interval.Create(leading_edge_param,outline_segment.Bounds.End)))\n        # Preserve the supplied finite TE thickness; close it with a short line.\n        segments.Add(CurveSegment.Create(outline_segment.EndPoint, outline_segment.StartPoint))\n        return segments\n\n    root_profile = make_profile(CR_MM, 0.0)\n    # Copy the fitted root curve by exact similarity, so tip has identical\n    # spline parameters. Fitting two independent splines can mismatch a loft.\n    tx,ty,tz = xyz_mm(0.0,0.0,CT_MM,SPAN_MM,DIHEDRAL_DEG)\n    tip_transform = Matrix.CreateTranslation(Vector.Create(tx*.001,ty*.001,tz*.001)) * Matrix.CreateScale(CT_MM/CR_MM)\n    tip_profile = List[ITrimmedCurve]()\n    for segment in root_profile:\n        tip_profile.Add(segment.CreateTransformedCopy(tip_transform))\n    wing = None\n    solid = None\n    section_areas_mm2 = {}\n    if CREATE_SOLID:\n        # Construct the ruled loft explicitly: cubic in profile direction U,\n        # linear in span direction V. The tip is an exact scaled/translated\n        # copy of root, so no automatic closed-loop matching can twist it.\n        root_spline = root_profile[0].Geometry\n        control = root_spline.ControlPoints\n        grid = Array.CreateInstance(ControlPoint,len(control),2)\n        for i,cp in enumerate(control):\n            grid[i,0] = ControlPoint(cp.Position,cp.Weight)\n            grid[i,1] = ControlPoint(tip_transform*cp.Position,cp.Weight)\n        data_v = NurbsData(2,False,False,Array[Knot]([Knot(0.0,2),Knot(1.0,2)]))\n        surface = NurbsSurface.Create(root_spline.Data,data_v,grid)\n        u_bounds = Interval.Create(root_profile[0].Bounds.Start,root_profile[1].Bounds.End)\n        solid = Body.CreateSurfaceBody(surface,BoxUV.Create(u_bounds,Interval.Create(0.0,1.0)))\n        solid.Reverse()\n        g = math.radians(DIHEDRAL_DEG)\n        caps = List[Body]()\n        for label,profile,station,sgn in ((\"Root\",root_profile,0.0,1.0),(\"Tip\",tip_profile,SPAN_MM,-1.0)):\n            x,y,z = xyz_mm(0.0,0.0,CR_MM,station,DIHEDRAL_DEG)\n            origin = Point.Create(x*.001,y*.001,z*.001)\n            thickness_direction = Direction.Create(0.0,-sgn*math.sin(g),sgn*math.cos(g))\n            plane = Plane.Create(Frame.Create(origin,Direction.DirX,thickness_direction))\n            cap = Body.CreatePlanarBody(plane,profile)\n            section_areas_mm2[label] = cap.SurfaceArea*1e6\n            caps.Add(cap)\n        # Planar finite-thickness trailing-edge face.\n        te_points = [root_profile[0].StartPoint,root_profile[1].EndPoint,\n                     tip_profile[1].EndPoint,tip_profile[0].StartPoint]\n        te_edges = List[ITrimmedCurve]()\n        for i in range(4):\n            te_edges.Add(CurveSegment.Create(te_points[i],te_points[(i+1)%4]))\n        t_te = math.tan(math.radians(SWEEP_LE_DEG))+(CT_MM-CR_MM)/SPAN_MM\n        te_plane = Plane.Create(Frame.Create(te_points[0],\n            Direction.Create(0.0,math.sin(g),-math.cos(g)),\n            Direction.Create(t_te,math.cos(g),math.sin(g))))\n        caps.Add(Body.CreatePlanarBody(te_plane,te_edges))\n        # Fuse stitches coincident topology WITHOUT a Boolean trim operation.\n        solid.Fuse(caps,False,None)\n        if not solid.IsClosed or not solid.IsManifold or solid.Volume \u003c= 0:\n            raise RuntimeError(\"Wing is not a closed manifold solid with positive volume.\")\n\n    # New document: never ClearAll(), never select pre-existing bodies by index.\n    document = Document.Create()\n    part = document.MainPart\n    if solid is not None:\n        wing = DesignBody.Create(part,\"NACA0012_cr{0:.2f}_ct{1:.2f}\".format(CR_MM,CT_MM),solid)\n        solid = wing.Shape\n    if KEEP_PROFILE_CURVES or not CREATE_SOLID:\n        for profile in (root_profile, tip_profile):\n            for segment in profile:\n                DesignCurve.Create(part, segment)\n\n    root_te_gap = (upper[-1][1]-lower[-1][1])*CR_MM\n    tip_te_gap = (upper[-1][1]-lower[-1][1])*CT_MM\n    t_half = math.tan(math.radians(SWEEP_LE_DEG)) + (CT_MM-CR_MM)/(2*SPAN_MM)\n    t_te = math.tan(math.radians(SWEEP_LE_DEG)) + (CT_MM-CR_MM)/SPAN_MM\n    expected_volume = polygon_area(outline)*SPAN_MM*(CR_MM**2+CR_MM*CT_MM+CT_MM**2)/3.0\n    report = {\n        \"cr_mm\": CR_MM, \"ct_mm\": CT_MM, \"span_in_panel_plane_mm\": SPAN_MM,\n        \"taper\": CT_MM/CR_MM, \"planform_area_mm2\": SPAN_MM*(CR_MM+CT_MM)/2.0,\n        \"sweep_LE_in_panel_plane_deg\": SWEEP_LE_DEG,\n        \"sweep_half_chord_in_panel_plane_deg\": math.degrees(math.atan(t_half)),\n        \"sweep_TE_in_panel_plane_deg\": math.degrees(math.atan(t_te)),\n        \"dihedral_deg\": DIHEDRAL_DEG,\n        \"tip_LE_xyz_mm\": xyz_mm(0, 0, CT_MM, SPAN_MM, DIHEDRAL_DEG),\n        \"upper_points\": len(upper), \"lower_points\": len(lower),\n        \"spline_points_no_duplicate_LE\": len(outline),\n        \"root_TE_thickness_mm\": root_te_gap, \"tip_TE_thickness_mm\": tip_te_gap,\n        \"fit_tolerance_mm\": FIT_TOLERANCE_MM,\n        \"polygon_reference_volume_mm3\": expected_volume,\n        \"closed_solid\": bool(solid is not None and solid.IsClosed),\n        \"manifold\": bool(solid is not None and solid.IsManifold),\n        \"cad_volume_mm3\": solid.Volume*1e9 if solid is not None else None,\n        \"section_areas_mm2\": section_areas_mm2,\n        \"tip_spline_is_exact_scaled_root_copy\": True,\n        \"CAD_is_not_aerodynamic_validation\": True\n    }\n    if solid is not None:\n        relative_volume_error = abs(report[\"cad_volume_mm3\"]/expected_volume-1.0)\n        report[\"relative_spline_vs_polygon_volume_difference\"] = relative_volume_error\n        if relative_volume_error > 0.01:\n            raise RuntimeError(\"Unexpected loft volume: check profile correspondence and units.\")\n        ratio = CT_MM/CR_MM\n        spline_volume = section_areas_mm2[\"Root\"]*SPAN_MM*(1+ratio+ratio*ratio)/3.0\n        report[\"homothetic_spline_reference_volume_mm3\"] = spline_volume\n        report[\"relative_loft_volume_difference\"] = abs(report[\"cad_volume_mm3\"]/spline_volume-1.0)\n        # Volume is a numerical CAD-kernel diagnostic, not a fit of airloads.\n        if report[\"relative_loft_volume_difference\"] > 0.01:\n            raise RuntimeError(\"Unexpected CAD volume for the ruled tapered geometry.\")\n\n    print(\"NACA 0012: cr={0:.2f} mm, ct={1:.2f} mm, b={2:.2f} mm\".format(float(CR_MM), float(CT_MM), float(SPAN_MM)))\n    print(\"S={0:.3f} mm^2; LE sweep={1:.3f} deg; dihedral={2:.3f} deg\".format(\n        float(report[\"planform_area_mm2\"]), float(SWEEP_LE_DEG), float(DIHEDRAL_DEG)))\n    print(\"TE thickness: root={0:.6f} mm, tip={1:.6f} mm\".format(root_te_gap, tip_te_gap))\n    print(\"Closed solid: {0}\".format(report[\"closed_solid\"]))\n    # View-only helper; a headless view failure does not change geometry.\n    try:\n        if wing is not None:\n            ViewHelper.SetViewMode(InteractionMode.Solid,None)\n            ViewHelper.ZoomToEntity(Selection.Create(wing))\n    except Exception:\n        pass\n    if SAVE_DIRECTORY:\n        if not os.path.isdir(SAVE_DIRECTORY):\n            os.makedirs(SAVE_DIRECTORY)\n        base = os.path.join(SAVE_DIRECTORY, \"naca0012_tapered_panel\")\n        # SpaceClaim 2025 R2's native format is SCDOCX.\n        DocumentSave.Execute(base + \".scdocx\")\n        if not os.path.isfile(base+\".scdocx\"):\n            raise RuntimeError(\"SpaceClaim did not create the requested CAD output files.\")\n        with io.open(base + \"_validation.json\", \"w\", encoding=\"utf-8\") as stream:\n            stream.write(u\"{0}\".format(json.dumps(report, indent=2, sort_keys=True)))\n        for label, chord, station in ((\"root\", CR_MM, 0.0), (\"tip\", CT_MM, SPAN_MM)):\n            with io.open(os.path.join(SAVE_DIRECTORY, label + \"_profile_mm.csv\"), \"w\", encoding=\"utf-8\") as stream:\n                stream.write(u\"side,index,x_mm,y_mm,z_mm\\n\")\n                for side_name, side in ((\"upper\", upper), (\"lower\", lower)):\n                    for i, (xc, yc) in enumerate(side):\n                        x, y, z = xyz_mm(xc, yc, chord, station, DIHEDRAL_DEG)\n                        stream.write(u\"{0},{1},{2:.9f},{3:.9f},{4:.9f}\\n\".format(side_name, i, x, y, z))\n        print(\"Saved: \" + base + \".scdocx\")\n    return report\n\n\nif RUN_IN_SPACECLAIM:\n    NACA_RESULT = build_wing()\n";
+/* Generate a complete native SpaceClaim script from the selected result. */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory;
+  else root.WingCAD = factory(root.WING_CAD_TEMPLATE);
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (template) {
+  'use strict';
+  if (typeof template !== 'string' || !template.startsWith('# Python Script, API Version = V252')) {
+    throw new Error('Thiếu mẫu script SpaceClaim V252.');
+  }
+  const modes = Object.freeze(['solid_profiles', 'solid_only', 'profiles']);
+  function numberLiteral(value) {
+    if (typeof value !== 'number' || !Number.isFinite(value)) throw new Error('Thông số CAD không hữu hạn.');
+    const literal = Number(value.toPrecision(15)).toString();
+    // IronPython's numeric formatting distinguishes int and float literals.
+    return /[.eE]/.test(literal) ? literal : literal + '.0';
+  }
+  function generate(result, selected = 0, mode = 'solid_profiles') {
+    if (!result || !result.inputs || !Array.isArray(result.roots) || !result.roots[selected]) {
+      throw new Error('Cần tính được kích thước trước khi xuất mã vẽ.');
+    }
+    if (!modes.includes(mode)) throw new Error('Chế độ dựng hình không hợp lệ.');
+    const r = result.roots[selected], p = result.inputs;
+    if (!(r.crMm > 0 && r.ctMm > 0 && p.spanMm > 0)) throw new Error('Chord và sải phải dương.');
+    if (Math.abs(p.dihedralDeg) >= 89 || Math.abs(p.sweepLeDeg) >= 89) {
+      throw new Error('Script CAD hiện hỗ trợ |dihedral| và |sweep mép trước| nhỏ hơn 89°.');
+    }
+    let source = template.replace(/\r\n/g, '\n');
+    const parameters = {
+      CR_MM: numberLiteral(r.crMm), CT_MM: numberLiteral(r.ctMm),
+      SPAN_MM: numberLiteral(p.spanMm), SWEEP_LE_DEG: numberLiteral(p.sweepLeDeg),
+      DIHEDRAL_DEG: numberLiteral(p.dihedralDeg),
+      CREATE_SOLID: mode === 'profiles' ? 'False' : 'True',
+      KEEP_PROFILE_CURVES: mode === 'solid_only' ? 'False' : 'True',
+      SAVE_DIRECTORY: 'None'
+    };
+    for (const [key, value] of Object.entries(parameters)) {
+      const pattern = new RegExp('^' + key + '\\s*=.*$', 'gm');
+      const matches = source.match(pattern);
+      if (!matches || matches.length !== 1) throw new Error('Mẫu CAD không có đúng một tham số ' + key + '.');
+      source = source.replace(pattern, line => {
+        const hash = line.indexOf('#');
+        return key + ' = ' + value + (hash >= 0 ? '  ' + line.slice(hash) : '');
+      });
+    }
+    const header = [
+      '# Generated by the local wing sizing tool; one physical panel.',
+      '# PH target Lz = ' + numberLiteral(p.targetGf) + ' gf; not experimental validation.',
+      '# Selected model root = ' + (selected + 1) + ' of ' + result.roots.length + '.',
+      '# Reference AR factor = ' + numberLiteral(p.arFactor) + '; S(panel) = ' + numberLiteral(r.areaMm2) + ' mm^2.',
+      '# Airfoil: original embedded NACA 0012 DAT, 66 upper + 66 lower points.',
+      '# Run in SpaceClaim 2025 R2, API V252. Creates a new document.',
+      '# Save manually after reviewing the geometry. No automatic file saving.',
+      ''
+    ].join('\n');
+    const lines = source.split('\n');
+    lines.splice(2, 0, header);
+    return lines.join('\n');
+  }
+  return { generate, numberLiteral, modes };
+});
+
+</script>
+<script>
+(function () {
+  'use strict';
+  const root = document.getElementById('wing-sizing-app');
+  const el = id => root.querySelector('#' + id);
+  const api = window.WingSizing;
+  const cad = window.WingCAD;
+  const keys = Object.keys(api.defaults);
+  const storageKey = 'wing-sizing-ph-v1';
+  let current = null, selected = 0;
+  const nf = (n, digits = 3) => new Intl.NumberFormat('vi-VN', { maximumFractionDigits: digits }).format(n);
+  function fillForm(values) { keys.forEach(k => { el(k).value = k === 'arFactor' ? String(values[k]) : String(values[k]).replace('.', ','); }); }
+  function readForm() {
+    const p = {};
+    for (const key of keys) {
+      const raw = el(key).value.trim();
+      p[key] = raw === '' ? NaN : Number(raw.replace(',', '.'));
+    }
+    return p;
+  }
+  function messages(items, isError) {
+    el('messages').replaceChildren();
+    for (const item of items) {
+      const div = document.createElement('div');
+      div.className = 'message ' + (isError ? 'error' : 'warning');
+      div.textContent = item;
+      if (isError) div.setAttribute('role', 'alert');
+      el('messages').append(div);
+    }
+  }
+  function clearResult(text, isError) {
+    current = null;
+    ['area-value', 'cr-value', 'ct-value'].forEach(k => el(k).textContent = '—');
+    el('area-secondary').textContent = '— mm²';
+    el('status').textContent = text;
+    el('status').className = 'status' + (isError ? ' invalid' : '');
+    el('force-check').textContent = '—';
+    el('diagnostic-rows').replaceChildren();
+    el('copy-button').disabled = el('csv-button').disabled = true;
+    el('cad-download-button').disabled = el('cad-copy-button').disabled = el('cad-mode').disabled = true;
+    el('cad-code').textContent = 'Tính kích thước hợp lệ để tạo mã vẽ.';
+    el('cad-status').textContent = '';
+    el('copy-status').textContent = '';
+    el('branch-container').hidden = true;
+    el('planform').hidden = true;
+    el('diagram-empty').hidden = false;
+    el('result-context').textContent = 'Diện tích trong mặt phẳng cánh';
+  }
+  function recompute() {
+    el('copy-status').textContent = '';
+    try {
+      current = api.calculate(readForm()); selected = 0;
+      el('branch-select').replaceChildren();
+      current.roots.forEach((r, i) => {
+        const option = document.createElement('option'); option.value = String(i);
+        option.textContent = (i === 0 ? 'Diện tích nhỏ hơn' : 'Diện tích lớn hơn') + ': S = ' + nf(r.areaCm2) + ' cm²';
+        el('branch-select').append(option);
+      });
+      el('branch-container').hidden = current.roots.length < 2;
+      messages(current.warnings, false); showResult();
+      try { localStorage.setItem(storageKey, JSON.stringify({ version: 1, inputs: current.inputs })); } catch (_) {}
+    } catch (error) {
+      clearResult('Chưa có nghiệm', true);
+      const texts = [error.message || 'Không thể tính bộ số liệu này.'];
+      if (error.details && Number.isFinite(error.details.maxModelGf)) {
+        texts.push('Giới hạn tải của mô hình với các đầu vào còn lại: ' + nf(error.details.maxModelGf, 4) + ' gf/tấm. Đây không phải giới hạn stall thực nghiệm.');
+      }
+      messages(texts, true);
+    }
+  }
+  function showResult() {
+    const r = current.roots[selected], p = current.inputs, f = current.flow;
+    el('area-value').textContent = nf(r.areaCm2, 3);
+    el('cr-value').textContent = nf(r.crMm, 3);
+    el('ct-value').textContent = nf(r.ctMm, 3);
+    el('area-secondary').textContent = nf(r.areaMm2, 2) + ' mm² · ' + nf(r.areaM2, 8) + ' m²';
+    el('status').textContent = 'Đã tìm thấy nghiệm'; el('status').className = 'status';
+    el('result-context').textContent = p.arFactor === 1 ? 'Tấm đơn · A = b²/S · S không phải diện tích chiếu ngang' : 'Cánh tham chiếu phản chiếu · A = 2b²/S · Kết quả vẫn cho một tấm';
+    el('force-check').textContent = 'Thế lại: Lz = ' + nf(r.forceGf, 4) + ' gf';
+    const data = [
+      ['Lực đứng tính lại Lz', nf(r.forceGf, 6) + ' gf'],
+      ['Phần dư phương trình lực', r.residualN.toExponential(3) + ' N'],
+      ['Áp suất động q', nf(f.qPa, 4) + ' Pa'],
+      ['Mach M', nf(f.mach, 6)],
+      ['Góc tấn tiết diện αg', nf(f.alphaGDeg, 6) + '°'],
+      ['AR của tấm b²/S', nf(r.panelAR, 6)],
+      ['AR đưa vào PH', nf(r.modelAR, 6)],
+      ['Sweep 50% dây cung', nf(r.halfSweepDeg, 6) + '°'],
+      ['Sweep mép sau', nf(r.teSweepDeg, 6) + '°'],
+      ['Độ dốc lực nâng 3D', nf(r.a3d, 6) + ' rad⁻¹'],
+      ['Hệ số lực nâng 3D CL', nf(r.CL, 6)]
+    ];
+    el('diagnostic-rows').replaceChildren();
+    data.forEach(([label, value]) => {
+      const row = document.createElement('tr'), th = document.createElement('th'), td = document.createElement('td');
+      th.scope = 'row'; th.textContent = label; td.textContent = value; row.append(th, td); el('diagnostic-rows').append(row);
+    });
+    el('copy-button').disabled = el('csv-button').disabled = false;
+    updateCAD();
+    el('diagram-empty').hidden = true; el('planform').hidden = false;
+    draw();
+  }
+  function draw() {
+    if (!current) return;
+    const r = current.roots[selected], p = current.inputs, svg = el('planform');
+    const w = Math.max(240, svg.getBoundingClientRect().width), h = w < 500 ? 240 : 255;
+    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    const b = p.spanMm, offset = b * Math.tan(p.sweepLeDeg * Math.PI / 180);
+    const ymin = Math.min(0, offset), ymax = Math.max(r.crMm, offset + r.ctMm);
+    const left = w < 400 ? 46 : 64, right = w < 400 ? 44 : 62;
+    const scale = Math.min((w - left - right) / b, (h - 90) / Math.max(ymax - ymin, 1e-9));
+    const dx = b * scale, dy = (ymax - ymin) * scale;
+    const x0 = left + ((w - left - right) - dx) / 2, x1 = x0 + dx;
+    const baseY = 57 + ((h - 90) - dy) / 2 - ymin * scale;
+    const y0 = baseY, yr = baseY + r.crMm * scale, y1 = baseY + offset * scale, yt = y1 + r.ctMm * scale;
+    const top = Math.min(y0, y1) - 26;
+    const num = v => v.toFixed(3);
+    svg.innerHTML = '<title>Planform một tấm cánh</title><desc>Sải ' + nf(b) + ' mm, chord gốc ' + nf(r.crMm) + ' mm, chord đầu ' + nf(r.ctMm) + ' mm. Góc sweep mép trước đo trong mặt phẳng cánh.</desc>' +
+      '<path class="wing" d="M' + num(x0) + ',' + num(y0) + ' L' + num(x1) + ',' + num(y1) + ' L' + num(x1) + ',' + num(yt) + ' L' + num(x0) + ',' + num(yr) + ' Z"/>' +
+      '<path class="extension" d="M' + num(x0) + ',' + num(y0 - 3) + ' V' + num(top - 4) + ' M' + num(x1) + ',' + num(y1 - 3) + ' V' + num(top - 4) + '"/>' +
+      '<path class="dimension" d="M' + num(x0) + ',' + num(top) + ' H' + num(x1) + ' M' + num(x0) + ',' + num(top - 4) + ' V' + num(top + 4) + ' M' + num(x1) + ',' + num(top - 4) + ' V' + num(top + 4) + '"/>' +
+      '<text x="' + num((x0 + x1) / 2) + '" y="' + num(top - 8) + '" text-anchor="middle">b = ' + nf(b, 2) + ' mm</text>' +
+      '<text x="' + num(x0 - 12) + '" y="' + num((y0 + yr) / 2 + 4) + '" text-anchor="end">cᵣ</text>' +
+      '<text x="' + num(x1 + 12) + '" y="' + num((y1 + yt) / 2 + 4) + '" text-anchor="start">cₜ</text>' +
+      '<text class="edge-label" x="' + num((x0 + x1) / 2) + '" y="' + num((yr + yt) / 2 + 22) + '" text-anchor="middle">Mép sau</text>';
+  }
+  function spaceclaimText() {
+    const r = current.roots[selected], p = current.inputs;
+    return '# One panel; geometric dimensions from PH approximation\n' +
+      'CR_MM = ' + r.crMm.toFixed(6) + '\nCT_MM = ' + r.ctMm.toFixed(6) +
+      '\nSPAN_MM = ' + p.spanMm.toFixed(6) + '\nSWEEP_LE_DEG = ' + p.sweepLeDeg.toFixed(6) +
+      '\nDIHEDRAL_DEG = ' + p.dihedralDeg.toFixed(6) + '\n# S = ' + r.areaMm2.toFixed(6) + ' mm^2 (one panel)\n';
+  }
+  function cadScript() {
+    return cad.generate(current, selected, el('cad-mode').value);
+  }
+  function updateCAD() {
+    el('cad-status').textContent = '';
+    try {
+      el('cad-code').textContent = cadScript();
+      el('cad-download-button').disabled = el('cad-copy-button').disabled = el('cad-mode').disabled = false;
+    } catch (error) {
+      el('cad-download-button').disabled = el('cad-copy-button').disabled = true;
+      el('cad-code').textContent = '';
+      el('cad-status').textContent = error.message;
+    }
+  }
+  function downloadText(text, name, type) {
+    const url = URL.createObjectURL(new Blob([text], {type}));
+    const link = document.createElement('a'); link.href = url; link.download = name;
+    document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  async function copyText(text) {
+    try {
+      if (!navigator.clipboard) throw new Error('fallback');
+      await navigator.clipboard.writeText(text);
+    } catch (_) {
+      const area = document.createElement('textarea'); area.value = text; area.readOnly = true;
+      area.style.position = 'absolute'; area.style.left = '-10000px'; document.body.append(area); area.select();
+      const ok = document.execCommand('copy'); area.remove();
+      if (!ok) throw new Error('Trình duyệt chặn sao chép; hãy dùng nút tải tệp.');
+    }
+  }
+  el('sizing-form').addEventListener('submit', e => { e.preventDefault(); recompute(); });
+  el('sizing-form').addEventListener('input', () => { clearResult('Cần tính lại', false); messages([], false); });
+  el('default-button').addEventListener('click', () => { fillForm(api.defaults); recompute(); });
+  el('branch-select').addEventListener('change', () => { selected = Number(el('branch-select').value); showResult(); });
+  el('cad-mode').addEventListener('change', updateCAD);
+  el('cad-download-button').addEventListener('click', () => {
+    if (!current) return;
+    downloadText(cadScript(), 'naca0012_wing_spaceclaim.py', 'text/x-python;charset=utf-8');
+    el('cad-status').textContent = 'Đã tạo script với kích thước hiện tại. Mở trong SpaceClaim để chạy.';
+  });
+  el('cad-copy-button').addEventListener('click', async () => {
+    if (!current) return;
+    try { await copyText(cadScript()); el('cad-status').textContent = 'Đã sao chép đầy đủ mã vẽ, gồm dữ liệu NACA 0012.'; }
+    catch (error) { el('cad-status').textContent = error.message; }
+  });
+  el('copy-button').addEventListener('click', async () => {
+    if (!current) return;
+    const text = spaceclaimText();
+    try {
+      if (!navigator.clipboard) throw new Error('fallback');
+      await navigator.clipboard.writeText(text);
+    } catch (_) {
+      const area = document.createElement('textarea'); area.value = text; area.readOnly = true;
+      area.style.position = 'absolute'; area.style.left = '-10000px'; document.body.append(area); area.select();
+      const ok = document.execCommand('copy'); area.remove();
+      if (!ok) { el('copy-status').textContent = 'Trình duyệt chặn sao chép; bạn có thể tải CSV để lấy số liệu.'; return; }
+    }
+    el('copy-status').textContent = 'Đã sao chép CR_MM, CT_MM, SPAN_MM, SWEEP_LE_DEG và DIHEDRAL_DEG.';
+  });
+  el('csv-button').addEventListener('click', () => {
+    if (!current) return;
+    const r = current.roots[selected];
+    const units = {targetGf:'gf',speedKmh:'km/h',spanMm:'mm',taper:'1',alphaDeg:'degree',dihedralDeg:'degree',sweepLeDeg:'degree',rho:'kg/m3',temperatureK:'K',arFactor:'1'};
+    const rows = [['quantity','value','unit','scope'], ...Object.entries(current.inputs).map(([k,v]) => [k,v,units[k],'input']),
+      ['S',r.areaM2,'m2','one_panel'],['S',r.areaMm2,'mm2','one_panel'],['cr',r.crMm,'mm','one_panel'],['ct',r.ctMm,'mm','one_panel'],
+      ['Lz_predicted',r.forceGf,'gf','one_panel'],['AR_panel',r.panelAR,'1','one_panel'],['AR_model',r.modelAR,'1','reference_wing'],
+      ['sweep_half_chord',r.halfSweepDeg,'degree','panel_plane'],['sweep_TE',r.teSweepDeg,'degree','panel_plane'],['residual',r.residualN,'N','one_panel'],
+      ['solution_index',selected+1,'1','model_branch'],['solution_count',current.roots.length,'1','model_branch'],['a0',2*Math.PI,'rad^-1','2D_assumption']];
+    const csv = '\uFEFF' + rows.map(row => row.join(',')).join('\r\n');
+    downloadText(csv, 'wing-dimensions.csv', 'text/csv;charset=utf-8');
+  });
+  let initial = Object.assign({}, api.defaults, { alphaDeg: 3, taper: 0.8 });
+  try { const saved = JSON.parse(localStorage.getItem(storageKey)); if (saved && saved.version === 1) { api.calculate(saved.inputs); initial = saved.inputs; } } catch (_) {}
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const preset = Object.assign({}, api.defaults, initial);
+    let supplied = false;
+    for (const key of Object.keys(api.defaults)) {
+      if (!params.has(key)) continue;
+      preset[key] = Number(params.get(key).trim().replace(',', '.'));
+      supplied = true;
+    }
+    if (supplied) { api.calculate(preset); initial = preset; }
+  } catch (_) {}
+  fillForm(initial); recompute();
+  new ResizeObserver(draw).observe(el('planform'));
+})();
+</script>
+</body>
+</html>

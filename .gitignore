@@ -1,0 +1,10 @@
+# Temporary MATLAB and operating-system files
+*.asv
+*.log
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Machine-specific Windows shortcuts
+*.lnk
