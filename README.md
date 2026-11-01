@@ -14,9 +14,9 @@ chạy offline và mã MATLAB thực hiện cùng mô hình.
 
 ## Sơ đồ giải thuật
 
-![Sơ đồ giải thuật tính S, cr, ct bằng Polhamus–Helmbold](assets/so-do-giai-thuat-ph.png)
+![Sơ đồ giải thuật tính S, cr, ct bằng Polhamus–Helmbold](so-do-giai-thuat-ph.png)
 
-[Bản SVG vector để phóng to hoặc chèn vào báo cáo](assets/so-do-giai-thuat-ph.svg).
+[Bản SVG vector để phóng to hoặc chèn vào báo cáo](so-do-giai-thuat-ph.svg).
 Các ký hiệu tròn A và B nối ba phần của cùng một quy trình.
 
 ## Chạy app
