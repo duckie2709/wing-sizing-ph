@@ -12,6 +12,13 @@ chạy offline và mã MATLAB thực hiện cùng mô hình.
 | `wing_dimensions_ph.m` | Hàm MATLAB giải phương trình bậc hai theo AR và kiểm tra lại lực đứng |
 | `chay_tinh_canh_PH.m` | Script chạy mẫu, có các thông số đầu vào để chỉnh sửa |
 
+## Sơ đồ giải thuật
+
+![Sơ đồ giải thuật tính S, cr, ct bằng Polhamus–Helmbold](assets/so-do-giai-thuat-ph.png)
+
+[Bản SVG vector để phóng to hoặc chèn vào báo cáo](assets/so-do-giai-thuat-ph.svg).
+Các ký hiệu tròn A và B nối ba phần của cùng một quy trình.
+
 ## Chạy app
 
 Mở `index.html` bằng Edge, Chrome hoặc Firefox. App là một tệp độc lập,
